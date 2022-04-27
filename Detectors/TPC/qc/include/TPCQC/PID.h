@@ -18,12 +18,14 @@
 #define AliceO2_TPC_QC_PID_H
 
 #include <vector>
+#include <unordered_map>
+#include <memory>
+#include <string_view>
 
-//root includes
-#include "TH1F.h"
-#include "TH2F.h"
+// root includes
+#include "TH1.h"
 
-//o2 includes
+// o2 includes
 #include "DataFormatsTPC/Defs.h"
 
 namespace o2
@@ -46,7 +48,7 @@ namespace qc
 class PID
 {
  public:
-  /// default constructor
+  /// \brief Constructor.
   PID() = default;
 
   /// bool extracts intormation from track and fills it to histograms
@@ -62,18 +64,11 @@ class PID
   /// Dump results to a file
   void dumpToFile(std::string filename);
 
-  /// get 1D histograms
-  std::vector<TH1F>& getHistograms1D() { return mHist1D; }
-  const std::vector<TH1F>& getHistograms1D() const { return mHist1D; }
-
-  /// get 2D histograms
-  std::vector<TH2F>& getHistograms2D() { return mHist2D; }
-  const std::vector<TH2F>& getHistograms2D() const { return mHist2D; }
+  std::unordered_map<std::string_view, std::vector<std::unique_ptr<TH1>>>& getMapOfHisto() { return mMapHist; }
+  const std::unordered_map<std::string_view, std::vector<std::unique_ptr<TH1>>>& getMapOfHisto() const { return mMapHist; }
 
  private:
-  std::vector<TH1F> mHist1D{};
-  std::vector<TH2F> mHist2D{};
-
+  std::unordered_map<std::string_view, std::vector<std::unique_ptr<TH1>>> mMapHist;
   ClassDefNV(PID, 1)
 };
 } // namespace qc
