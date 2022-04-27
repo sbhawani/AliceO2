@@ -11,11 +11,11 @@
 
 #include <cassert>
 
-//root includes
+// root includes
 #include "TH1F.h"
 #include "TH2F.h"
 
-//o2 includes
+// o2 includes
 #include "TPCQC/Helpers.h"
 #include "TPCBase/Mapper.h"
 #include "TPCBase/ROC.h"
@@ -72,11 +72,35 @@ void helpers::setStyleHistogram2D(std::vector<TH2F>& histos)
     helpers::setStyleHistogram2D(hist);
   }
 }
-
+//______________________________________________________________________________
+void helpers::setStyleHistogram1D(TH1* histo)
+{
+  histo->SetStats(1);
+}
+//_____________________________________________________________________________
+void helpers::setStyleHistogram2D(TH2* histo)
+{
+  histo->SetOption("colz");
+  histo->SetStats(0);
+  histo->SetMinimum(0.9);
+}
+//______________________________________________________________________________
+void helpers::setStyleHistogramsInMap(std::unordered_map<std::string_view, std::vector<std::unique_ptr<TH1>>>& mapOfvectors)
+{
+  for (auto const& [key, vecOfHist] : mapOfvectors) {
+    for (auto& hist : vecOfHist) {
+      if (typeid(*hist) == typeid(TH1F)) {
+        helpers::setStyleHistogram1D(*hist);
+      } else if (typeid(*hist) == typeid(TH2F)) {
+        helpers::setStyleHistogram2D(static_cast<TH2&>(*hist));
+      }
+    }
+  }
+}
 //______________________________________________________________________________
 bool helpers::newZSCalib(const o2::tpc::CalDet<float>& refPedestal, const o2::tpc::CalDet<float>& refNoise, const o2::tpc::CalDet<float>& pedestal)
 {
-  const o2::tpc::Mapper& mapper = o2::tpc::Mapper::instance();
+  static const o2::tpc::Mapper& mapper = o2::tpc::Mapper::instance();
 
   o2::tpc::CalDet<float> diffCalDet = refPedestal - pedestal;
 
