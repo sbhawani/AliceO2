@@ -35,16 +35,15 @@
 using namespace o2::tpc;
 
 // Cuts
- const int mipTot = 50;
- const int mipMax = 50;
+const int mipTot = 50;
+const int mipMax = 50;
 
 TCanvas* draw(std::vector<std::unique_ptr<TH1>>& histdEdxTot, std::vector<std::unique_ptr<TH1>>& histdEdxMax, std::string_view opt /*= ""*/, std::string_view add /*= ""*/, bool logx /*= false*/, bool logy /*= false*/, bool logz /*= false*/, int mipTot, int mipMax)
 {
   auto* cdEdx = new TCanvas(fmt::format("cdEdx{}", add).data(), fmt::format("dEdx {}", add).data(), 1500, 500);
-  if (histdEdxTot.size()==1){
-    cdEdx->Divide(2,histdEdxTot.size());
-  }
-  else{
+  if (histdEdxTot.size() == 1) {
+    cdEdx->Divide(2, histdEdxTot.size());
+  } else {
     cdEdx->Divide(histdEdxTot.size(), 2);
   }
 
@@ -53,18 +52,18 @@ TCanvas* draw(std::vector<std::unique_ptr<TH1>>& histdEdxTot, std::vector<std::u
     gPad->SetLogx(logx);
     gPad->SetLogy(logy);
     gPad->SetLogz(logz);
-    auto &hTot = histdEdxTot[idEdxType];
+    auto& hTot = histdEdxTot[idEdxType];
     hTot->Draw(opt.data());
 
-    if (histdEdxTot.size()==1){
-     cdEdx->cd(idEdxType + 1 +1);
-    }else{
-       cdEdx->cd(idEdxType + 1 + 5);
+    if (histdEdxTot.size() == 1) {
+      cdEdx->cd(idEdxType + 1 + 1);
+    } else {
+      cdEdx->cd(idEdxType + 1 + 5);
     }
     gPad->SetLogx(logx);
     gPad->SetLogy(logy);
     gPad->SetLogz(logz);
-    auto &hMax = histdEdxMax[idEdxType];
+    auto& hMax = histdEdxMax[idEdxType];
     hMax->Draw(opt.data());
   }
   return cdEdx;
@@ -105,38 +104,38 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   // ===| create canvas |========================================================
   std::unordered_map<std::string_view, std::vector<std::unique_ptr<TH1>>>& mMapOfHisto = pid.getMapOfHisto();
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspPos = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotVspPos"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspNeg= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotVspNeg"];
-  std::vector<std::unique_ptr<TH1>>& histNClsPID = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hNClsPID"];
-  std::vector<std::unique_ptr<TH1>>& histNClsSubPID= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hNClsSubPID"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhi = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxVsPhi"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxVsTgl= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxVsTgl"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxVsncls = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxVsncls"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspBeforeCuts= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotVspBeforeCuts"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxVspBeforeCuts= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxVspBeforeCuts"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhiMipsAside= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxVsPhiMipsAside"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhiMipsCside= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxVsPhiMipsCside"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspPos = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotVspPos"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspNeg = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotVspNeg"];
+  std::vector<std::unique_ptr<TH1>>& histNClsPID = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hNClsPID"];
+  std::vector<std::unique_ptr<TH1>>& histNClsSubPID = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hNClsSubPID"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhi = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxVsPhi"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxVsTgl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxVsTgl"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxVsncls = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxVsncls"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotVspBeforeCuts = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotVspBeforeCuts"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxVspBeforeCuts = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxVspBeforeCuts"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhiMipsAside = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxVsPhiMipsAside"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxVsPhiMipsCside = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxVsPhiMipsCside"];
 
-  std::vector<std::unique_ptr<TH1>>& histMIPNclVsTgl= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hMIPNclVsTgl"];
-  std::vector<std::unique_ptr<TH1>>& histMIPNclVsTglSub= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hMIPNclVsTglSub"];
+  std::vector<std::unique_ptr<TH1>>& histMIPNclVsTgl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hMIPNclVsTgl"];
+  std::vector<std::unique_ptr<TH1>>& histMIPNclVsTglSub = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hMIPNclVsTglSub"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTot = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotVsp"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMax= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxVsp"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTot = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotVsp"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMax = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxVsp"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIP = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotMIP"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIP= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxMIP"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIP = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotMIP"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIP = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxMIP"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPTgl = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotMIPVsTgl"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPTgl= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxMIPVsTgl"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPTgl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotMIPVsTgl"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPTgl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxMIPVsTgl"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPSnp = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotMIPVsSnp"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPSnp= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxMIPVsSnp"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPSnp = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotMIPVsSnp"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPSnp = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxMIPVsSnp"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPNcl = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotMIPVsNcl"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPNcl= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxMIPVsNcl"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPNcl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotMIPVsNcl"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPNcl = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxMIPVsNcl"];
 
-  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPSec = (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxTotMIPVsSec"];
-  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPSec= (std::vector<std::unique_ptr<TH1>>&) mMapOfHisto["hdEdxMaxMIPVsSec"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxTotMIPSec = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxTotMIPVsSec"];
+  std::vector<std::unique_ptr<TH1>>& histdEdxMaxMIPSec = (std::vector<std::unique_ptr<TH1>>&)mMapOfHisto["hdEdxMaxMIPVsSec"];
 
   // dEdx vs. p
   auto cdEdxP = draw(histdEdxTot, histdEdxMax, "colz", "P", true, true, true, mipTot, mipMax);
@@ -157,7 +156,7 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   auto* cdEdxMIPSec = draw(histdEdxTotMIPSec, histdEdxMaxMIPSec, "colz", "MIP_Sec", false, false, true, mipTot, mipMax); // new TCanvas("cdEdxMIPSec", "dEdx MIPSec", 1500, 500);
 
   //--------------------------------------------
-    // dEdx vs. p  sign
+  // dEdx vs. p  sign
   auto cdEdxPTotSign = draw(histdEdxTotVspPos, histdEdxTotVspNeg, "colz", "Sign", true, true, true, mipTot, mipMax);
 
   // NClusters
@@ -175,7 +174,7 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   //dEdx vs phi A and C side
   auto cdEdxPhiSides = draw(histdEdxVsPhiMipsAside, histdEdxVsPhiMipsCside, "colz", "phi_A_and_C_side", true, true, true, mipTot, mipMax);
 
- //N cluster MIP vs tgl
+  //N cluster MIP vs tgl
   auto cNclustervsTglMIPs = draw(histMIPNclVsTgl, histMIPNclVsTglSub, "colz", "MIP_ncls", true, true, true, mipTot, mipMax);
 
   std::vector<TCanvas*> canvases;
@@ -193,7 +192,6 @@ void runPID(std::string outputFileName = "PID", std::string_view inputFileName =
   canvases.emplace_back(cdEdxPMIPandTOT);
   canvases.emplace_back(cdEdxPhiSides);
   canvases.emplace_back(cNclustervsTglMIPs);
-
 
   if (outputFileName.find(".root") != std::string::npos) {
     outputFileName.resize(outputFileName.size() - 5);
