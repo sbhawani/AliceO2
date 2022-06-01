@@ -96,7 +96,7 @@ void helpers::setStyleHistogramsInMap(std::unordered_map<std::string_view, std::
 void helpers::setStyleHistogramsInMap(std::unordered_map<std::string_view, std::unique_ptr<TH1>>& mapOfHisto)
 {
   for (const auto& keyValue : mapOfHisto) {
-      helpers::setStyleHistogram(*(keyValue.second));
+    helpers::setStyleHistogram(*(keyValue.second));
   }
 }
 //______________________________________________________________________________

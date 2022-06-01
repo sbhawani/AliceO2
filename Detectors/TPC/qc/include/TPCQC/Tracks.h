@@ -87,6 +87,7 @@ class Tracks
   /// get ratios of 1D histograms
   std::unordered_map<std::string_view, std::unique_ptr<TH1>>& getmMapHist() { return mMapHist; }
   const std::unordered_map<std::string_view, std::unique_ptr<TH1>>& getmMapHist() const { return mMapHist; }
+
  private:
   std::unordered_map<std::string_view, std::unique_ptr<TH1>> mMapHist;
   std::vector<TH1F> mHist1D{};      ///< Initialize vector of 1D histograms

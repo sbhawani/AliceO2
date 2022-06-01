@@ -138,7 +138,7 @@ void runTracks(std::string outputFileName = "tpcQcTracks", std::string_view inpu
   hNClustersAfterCuts->Draw();
 
   // ratio plots
-  auto* c4= new TCanvas("c4", "ratio", 800, 300);
+  auto* c4 = new TCanvas("c4", "ratio", 800, 300);
   c4->Divide(2, 2);
   c4->cd(1);
   hEtaRatio->Draw();
@@ -165,7 +165,6 @@ void runTracks(std::string outputFileName = "tpcQcTracks", std::string_view inpu
   delete c2;
   delete c3;
   delete c4;
-
 
   //===| dump histograms to a file |=============================================
   std::string histFile = outputFileName + ".root";

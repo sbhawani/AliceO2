@@ -28,10 +28,10 @@ ClassImp(o2::tpc::qc::Tracks);
 
 using namespace o2::tpc::qc;
 const std::vector<std::string_view> histVecNames{"hNClustersBeforeCuts", "hNClustersAfterCuts", "hEta",
- "hPhiAside","hPhiCside","hPt","hSign","hEtaNeg","hEtaPos","hPhiAsideNeg","hPhiAsidePos","hPhiCsideNeg","hPhiCsidePos",
- "hPtNeg","hPtPos","hEtaBeforeCuts","hPtBeforeCuts","hQOverPt","hPhiBothSides","h2DNClustersEta","h2DNClustersPhiAside","h2DNClustersPhiCside",
- "h2DNClustersPt","h2DEtaPhi","h2DEtaPhiNeg","h2DEtaPhiPos","h2DNClustersEtaBeforeCuts","h2DQOverPtPhiAside","h2DQOverPtPhiAside",
- "h2DQOverPtPhiCside","hEtaRatio","hPhiAsideRatio","hPhiCsideRatio","hPtRatio"};
+                                                 "hPhiAside", "hPhiCside", "hPt", "hSign", "hEtaNeg", "hEtaPos", "hPhiAsideNeg", "hPhiAsidePos", "hPhiCsideNeg", "hPhiCsidePos",
+                                                 "hPtNeg", "hPtPos", "hEtaBeforeCuts", "hPtBeforeCuts", "hQOverPt", "hPhiBothSides", "h2DNClustersEta", "h2DNClustersPhiAside", "h2DNClustersPhiCside",
+                                                 "h2DNClustersPt", "h2DEtaPhi", "h2DEtaPhiNeg", "h2DEtaPhiPos", "h2DNClustersEtaBeforeCuts", "h2DQOverPtPhiAside", "h2DQOverPtPhiAside",
+                                                 "h2DQOverPtPhiCside", "hEtaRatio", "hPhiAsideRatio", "hPhiCsideRatio", "hPtRatio"};
 
 //______________________________________________________________________________
 void Tracks::initializeHistograms()
@@ -40,50 +40,49 @@ void Tracks::initializeHistograms()
   TH1::AddDirectory(false);
   const auto logPtBinning = helpers::makeLogBinning(100, 0.05, 20);
   //1d hitograms
-  mMapHist["hNClustersBeforeCuts"]= std::make_unique<TH1F>("hNClustersBeforeCuts", "Number of clusters (before cuts);# TPC clusters", 400, -0.5, 399.5);
-  mMapHist["hNClustersAfterCuts"]=std::make_unique<TH1F>("hNClustersAfterCuts", "Number of clusters;# TPC clusters", 400, -0.5, 399.5);
-  mMapHist["hEta"]=std::make_unique<TH1F>("hEta", "Pseudorapidity;eta", 400, -2., 2.);
-  mMapHist["hPhiAside"]=std::make_unique<TH1F>("hPhiAside", "Azimuthal angle, A side;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPhiCside"]=std::make_unique<TH1F>("hPhiCside", "Azimuthal angle, C side;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPt"]=std::make_unique<TH1F>("hPt", "Transverse momentum;p_T", logPtBinning.size() - 1, logPtBinning.data());
-  mMapHist["hSign"]=std::make_unique<TH1F>("hSign", "Sign of electric charge;charge sign", 3, -1.5, 1.5);
-  mMapHist["hEtaNeg"]=std::make_unique<TH1F>("hEtaNeg", "Pseudorapidity, neg. tracks;eta", 400, -2., 2.);
-  mMapHist["hEtaPos"]=std::make_unique<TH1F>("hEtaPos", "Pseudorapidity, pos. tracks;eta", 400, -2., 2.);
-  mMapHist["hPhiAsideNeg"]=std::make_unique<TH1F>("hPhiAsideNeg", "Azimuthal angle, A side, neg. tracks;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPhiAsidePos"]=std::make_unique<TH1F>("hPhiAsidePos", "Azimuthal angle, A side, pos. tracks;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPhiCsideNeg"]=std::make_unique<TH1F>("hPhiCsideNeg", "Azimuthal angle, C side, neg. tracks;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPhiCsidePos"]=std::make_unique<TH1F>("hPhiCsidePos", "Azimuthal angle, C side, pos. tracks;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPtNeg"]=std::make_unique<TH1F>("hPtNeg", "Transverse momentum, neg. tracks;p_T", logPtBinning.size() - 1, logPtBinning.data());
-  mMapHist["hPtPos"]=std::make_unique<TH1F>("hPtPos", "Transverse momentum, pos. tracks;p_T", logPtBinning.size() - 1, logPtBinning.data());
-  mMapHist["hEtaBeforeCuts"]=std::make_unique<TH1F>("hEtaBeforeCuts", "Pseudorapidity (before cuts);eta", 400, -2., 2.);
-  mMapHist["hPtBeforeCuts"]=std::make_unique<TH1F>("hPtBeforeCuts", "Transverse momentum (before cuts);p_T", logPtBinning.size() - 1, logPtBinning.data());
-  mMapHist["hQOverPt"]=std::make_unique<TH1F>("hQOverPt", "Charge over transverse momentum;q/p_T", 400, -20., 20.);
-  mMapHist["hPhiBothSides"]=std::make_unique<TH1F>("hPhiBothSides", "Azimuthal angle, both sides clusters;phi", 360, 0., 2 * M_PI);
+  mMapHist["hNClustersBeforeCuts"] = std::make_unique<TH1F>("hNClustersBeforeCuts", "Number of clusters (before cuts);# TPC clusters", 400, -0.5, 399.5);
+  mMapHist["hNClustersAfterCuts"] = std::make_unique<TH1F>("hNClustersAfterCuts", "Number of clusters;# TPC clusters", 400, -0.5, 399.5);
+  mMapHist["hEta"] = std::make_unique<TH1F>("hEta", "Pseudorapidity;eta", 400, -2., 2.);
+  mMapHist["hPhiAside"] = std::make_unique<TH1F>("hPhiAside", "Azimuthal angle, A side;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPhiCside"] = std::make_unique<TH1F>("hPhiCside", "Azimuthal angle, C side;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPt"] = std::make_unique<TH1F>("hPt", "Transverse momentum;p_T", logPtBinning.size() - 1, logPtBinning.data());
+  mMapHist["hSign"] = std::make_unique<TH1F>("hSign", "Sign of electric charge;charge sign", 3, -1.5, 1.5);
+  mMapHist["hEtaNeg"] = std::make_unique<TH1F>("hEtaNeg", "Pseudorapidity, neg. tracks;eta", 400, -2., 2.);
+  mMapHist["hEtaPos"] = std::make_unique<TH1F>("hEtaPos", "Pseudorapidity, pos. tracks;eta", 400, -2., 2.);
+  mMapHist["hPhiAsideNeg"] = std::make_unique<TH1F>("hPhiAsideNeg", "Azimuthal angle, A side, neg. tracks;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPhiAsidePos"] = std::make_unique<TH1F>("hPhiAsidePos", "Azimuthal angle, A side, pos. tracks;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPhiCsideNeg"] = std::make_unique<TH1F>("hPhiCsideNeg", "Azimuthal angle, C side, neg. tracks;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPhiCsidePos"] = std::make_unique<TH1F>("hPhiCsidePos", "Azimuthal angle, C side, pos. tracks;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPtNeg"] = std::make_unique<TH1F>("hPtNeg", "Transverse momentum, neg. tracks;p_T", logPtBinning.size() - 1, logPtBinning.data());
+  mMapHist["hPtPos"] = std::make_unique<TH1F>("hPtPos", "Transverse momentum, pos. tracks;p_T", logPtBinning.size() - 1, logPtBinning.data());
+  mMapHist["hEtaBeforeCuts"] = std::make_unique<TH1F>("hEtaBeforeCuts", "Pseudorapidity (before cuts);eta", 400, -2., 2.);
+  mMapHist["hPtBeforeCuts"] = std::make_unique<TH1F>("hPtBeforeCuts", "Transverse momentum (before cuts);p_T", logPtBinning.size() - 1, logPtBinning.data());
+  mMapHist["hQOverPt"] = std::make_unique<TH1F>("hQOverPt", "Charge over transverse momentum;q/p_T", 400, -20., 20.);
+  mMapHist["hPhiBothSides"] = std::make_unique<TH1F>("hPhiBothSides", "Azimuthal angle, both sides clusters;phi", 360, 0., 2 * M_PI);
   //2d histograms
-  mMapHist["h2DNClustersEta"]=std::make_unique<TH2F>("h2DNClustersEta", "Number of clusters vs. eta;eta;# TPC clusters", 400, -2., 2., 200, -0.5, 199.5);
-  mMapHist["h2DNClustersPhiAside"]=std::make_unique<TH2F>("h2DNClustersPhiAside", "Number of clusters vs. phi, A side ;phi;# TPC clusters", 360, 0., 2 * M_PI, 200, -0.5, 199.5);
-  mMapHist["h2DNClustersPhiCside"]=std::make_unique<TH2F>("h2DNClustersPhiCside", "Number of clusters vs. phi, C side ;phi;# TPC clusters", 360, 0., 2 * M_PI, 200, -0.5, 199.5);
-  mMapHist["h2DNClustersPt"]=std::make_unique<TH2F>("h2DNClustersPt", "Number of clusters vs. p_T;p_T;# TPC clusters", logPtBinning.size() - 1, logPtBinning.data(), 200, -0.5, 199.5);
-  mMapHist["h2DEtaPhi"]=std::make_unique<TH2F>("h2DEtaPhi", "Tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
-  mMapHist["h2DEtaPhiNeg"]=std::make_unique<TH2F>("h2DEtaPhiNeg", "Negative tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
-  mMapHist["h2DEtaPhiPos"]=std::make_unique<TH2F>("h2DEtaPhiPos", "Positive tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
-  mMapHist["h2DNClustersEtaBeforeCuts"]=std::make_unique<TH2F>("h2DNClustersEtaBeforeCuts", "NClusters vs. eta (before cuts);eta;# TPC clusters", 400, -2., 2., 200, -0.5, 199.5);
-  mMapHist["h2DNClustersPtBeforeCuts"]=std::make_unique<TH2F>("h2DNClustersPtBeforeCuts", "NClusters vs. p_T (before cuts);p_T;# TPC clusters", logPtBinning.size() - 1, logPtBinning.data(), 200, -0.5, 199.5);
-  mMapHist["h2DEtaPhiBeforeCuts"]=std::make_unique<TH2F>("h2DEtaPhiBeforeCuts", "Tracks in eta vs. phi (before cuts);phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
-  mMapHist["h2DQOverPtPhiAside"]=std::make_unique<TH2F>("h2DQOverPtPhiAside", "Charger over p_T vs. phi, A side;phi;q/p_T", 360, 0., 2 * M_PI, 400, -20., 20.);
-  mMapHist["h2DQOverPtPhiCside"]=std::make_unique<TH2F>("h2DQOverPtPhiCside", "Charger over p_T vs. phi, C side;phi;q/p_T", 360, 0., 2 * M_PI, 400, -20., 20.);
+  mMapHist["h2DNClustersEta"] = std::make_unique<TH2F>("h2DNClustersEta", "Number of clusters vs. eta;eta;# TPC clusters", 400, -2., 2., 200, -0.5, 199.5);
+  mMapHist["h2DNClustersPhiAside"] = std::make_unique<TH2F>("h2DNClustersPhiAside", "Number of clusters vs. phi, A side ;phi;# TPC clusters", 360, 0., 2 * M_PI, 200, -0.5, 199.5);
+  mMapHist["h2DNClustersPhiCside"] = std::make_unique<TH2F>("h2DNClustersPhiCside", "Number of clusters vs. phi, C side ;phi;# TPC clusters", 360, 0., 2 * M_PI, 200, -0.5, 199.5);
+  mMapHist["h2DNClustersPt"] = std::make_unique<TH2F>("h2DNClustersPt", "Number of clusters vs. p_T;p_T;# TPC clusters", logPtBinning.size() - 1, logPtBinning.data(), 200, -0.5, 199.5);
+  mMapHist["h2DEtaPhi"] = std::make_unique<TH2F>("h2DEtaPhi", "Tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
+  mMapHist["h2DEtaPhiNeg"] = std::make_unique<TH2F>("h2DEtaPhiNeg", "Negative tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
+  mMapHist["h2DEtaPhiPos"] = std::make_unique<TH2F>("h2DEtaPhiPos", "Positive tracks in eta vs. phi;phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
+  mMapHist["h2DNClustersEtaBeforeCuts"] = std::make_unique<TH2F>("h2DNClustersEtaBeforeCuts", "NClusters vs. eta (before cuts);eta;# TPC clusters", 400, -2., 2., 200, -0.5, 199.5);
+  mMapHist["h2DNClustersPtBeforeCuts"] = std::make_unique<TH2F>("h2DNClustersPtBeforeCuts", "NClusters vs. p_T (before cuts);p_T;# TPC clusters", logPtBinning.size() - 1, logPtBinning.data(), 200, -0.5, 199.5);
+  mMapHist["h2DEtaPhiBeforeCuts"] = std::make_unique<TH2F>("h2DEtaPhiBeforeCuts", "Tracks in eta vs. phi (before cuts);phi;eta", 360, 0., 2 * M_PI, 400, -2., 2.);
+  mMapHist["h2DQOverPtPhiAside"] = std::make_unique<TH2F>("h2DQOverPtPhiAside", "Charger over p_T vs. phi, A side;phi;q/p_T", 360, 0., 2 * M_PI, 400, -20., 20.);
+  mMapHist["h2DQOverPtPhiCside"] = std::make_unique<TH2F>("h2DQOverPtPhiCside", "Charger over p_T vs. phi, C side;phi;q/p_T", 360, 0., 2 * M_PI, 400, -20., 20.);
   //1d histograms
-  mMapHist["hEtaRatio"]=std::make_unique<TH1F>("hEtaRatio", "Pseudorapidity, ratio neg./pos. ;eta", 400, -2., 2.);
-  mMapHist["hPhiAsideRatio"]=std::make_unique<TH1F>("hPhiAsideRatio", "Azimuthal angle, A side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPhiCsideRatio"]=std::make_unique<TH1F>("hPhiCsideRatio", "Azimuthal angle, C side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
-  mMapHist["hPtRatio"]=std::make_unique<TH1F>("hPtRatio", "Transverse momentum, ratio neg./pos. ;p_T", logPtBinning.size() - 1, logPtBinning.data());
-
+  mMapHist["hEtaRatio"] = std::make_unique<TH1F>("hEtaRatio", "Pseudorapidity, ratio neg./pos. ;eta", 400, -2., 2.);
+  mMapHist["hPhiAsideRatio"] = std::make_unique<TH1F>("hPhiAsideRatio", "Azimuthal angle, A side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPhiCsideRatio"] = std::make_unique<TH1F>("hPhiCsideRatio", "Azimuthal angle, C side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
+  mMapHist["hPtRatio"] = std::make_unique<TH1F>("hPtRatio", "Transverse momentum, ratio neg./pos. ;p_T", logPtBinning.size() - 1, logPtBinning.data());
 }
 //______________________________________________________________________________
 void Tracks::resetHistograms()
 {
   for (const auto& pair : mMapHist) {
-      pair.second->Reset();
+    pair.second->Reset();
   }
 }
 //______________________________________________________________________________
