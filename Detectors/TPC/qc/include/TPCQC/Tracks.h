@@ -97,7 +97,7 @@ class Tracks
   const std::unordered_map<std::string_view, std::unique_ptr<TH1>>& getMapHist() const { return mMapHist; }
 
  private:
-  float mCutAbsEta;  // Eta cut
+  float mCutAbsEta;     // Eta cut
   int mCutMinnCls;      // minimum N clusters
   float mCutMindEdxTot; // dEdxTot min value
   std::unordered_map<std::string_view, std::unique_ptr<TH1>> mMapHist;
