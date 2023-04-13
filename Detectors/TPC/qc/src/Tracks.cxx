@@ -72,6 +72,12 @@ void Tracks::initializeHistograms()
   mMapHist["hPhiAsideRatio"] = std::make_unique<TH1F>("hPhiAsideRatio", "Azimuthal angle, A side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
   mMapHist["hPhiCsideRatio"] = std::make_unique<TH1F>("hPhiCsideRatio", "Azimuthal angle, C side, ratio neg./pos. ;phi", 360, 0., 2 * M_PI);
   mMapHist["hPtRatio"] = std::make_unique<TH1F>("hPtRatio", "Transverse momentum, ratio neg./pos. ;p_T", logPtBinning.size() - 1, logPtBinning.data());
+
+  // eta vs pt and phi vs pt possitive and negative signs
+  mMapHist["hEtaVsPtPos"] = std::make_unique<TH2F>("hEtaVsPtPos", "#eta vs. p_{T} (Pos.);p_{T};eta", logPtBinning.size() - 1, logPtBinning.data(), 400, -2., 2.);
+  mMapHist["hEtaVsPtNeg"] = std::make_unique<TH2F>("hEtaVsPtNeg", "#eta vs. p_{T} (Neg.);p_{T};eta", logPtBinning.size() - 1, logPtBinning.data(), 400, -2., 2.);
+  mMapHist["hPhiVsPtPos"] = std::make_unique<TH2F>("hPhiVsPtPos", "#phi vs. p_{T} (Pos.);p_{T};phi", logPtBinning.size() - 1, logPtBinning.data(), 360, 0., 2 * M_PI);
+  mMapHist["hPhiVsPtNeg"] = std::make_unique<TH2F>("hPhiVsPtNeg", "#phi vs. p_{T} (Neg.);p_{T};phi", logPtBinning.size() - 1, logPtBinning.data(), 360, 0., 2 * M_PI);
 }
 //______________________________________________________________________________
 void Tracks::resetHistograms()
@@ -157,8 +163,12 @@ bool Tracks::processTrack(const o2::tpc::TrackTPC& track)
 
     if (sign < 0.) {
       mMapHist["h2DEtaPhiNeg"]->Fill(phi, eta);
+      mMapHist["hEtaVsPtNeg"]->Fill(pt, eta);
+      mMapHist["hPhiVsPtNeg"]->Fill(pt, phi);
     } else {
       mMapHist["h2DEtaPhiPos"]->Fill(phi, eta);
+      mMapHist["hEtaVsPtPos"]->Fill(pt, eta);
+      mMapHist["hPhiVsPtPos"]->Fill(pt, phi);
     }
   }
 
