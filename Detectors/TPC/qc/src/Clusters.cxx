@@ -109,7 +109,7 @@ void Clusters::fillADCValue(int cru, int rowInSector, int padInRow, int timeBin,
 }
 
 //______________________________________________________________________________
-void Clusters::normalize(const float nHBFPerTF)
+void Clusters::normalize()
 {
   if (mIsNormalized) {
     return;
@@ -122,7 +122,7 @@ void Clusters::normalize(const float nHBFPerTF)
   mTimeBin /= mNClusters;
 
   mOccupancy = mNClusters;
-  mOccupancy /= float(mProcessedTFs * (o2::constants::lhc::LHCMaxBunches * nHBFPerTF) / float(o2::tpc::ParameterElectronics::TIMEBININBC));
+  mOccupancy /= float(mProcessedTFs * (o2::constants::lhc::LHCMaxBunches * mNHBFperTF) / float(o2::tpc::ParameterElectronics::TIMEBININBC));
 
   mIsNormalized = true;
   mOccupancy.setName("Occupancy");

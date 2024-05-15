@@ -49,9 +49,9 @@ class Clusters
 
   void fillADCValue(int cru, int rowInSector, int padInRow, int timeBin, float adcValue);
 
-  void normalize(const float nHBFPerTF = 128);
+  void normalize();
 
-  inline void analyse() { Clusters::normalize(); } // deprecated
+  inline void analyse() { Clusters::normalize(); }
 
   void denormalize();
 
@@ -61,6 +61,10 @@ class Clusters
 
   void dumpToFile(std::string filename, int type = 0);
 
+  void setnHBFperTF(float nHBFPerTF)
+  {
+    mNHBFperTF = nHBFPerTF;
+  }
   const CalPad& getNClusters() const { return mNClusters; }
   const CalPad& getQMax() const { return mQMax; }
   const CalPad& getQTot() const { return mQTot; }
@@ -91,6 +95,7 @@ class Clusters
   CalPad mOccupancy{"Occupancy"};
   size_t mProcessedTFs{0};
   bool mIsNormalized{false};
+  float mNHBFperTF{32};
 
   ClassDefNV(Clusters, 1)
 };
